@@ -1,0 +1,40 @@
+name: Validate plugin
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  check:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - run: npm run package
+      - uses: actions/upload-artifact@v4
+        if: matrix.os == 'ubuntu-latest'
+        with:
+          name: feishu-lark-sync-${{ github.sha }}
+          if-no-files-found: error
+          retention-days: 14
+          path: |
+            dist/*.zip
+            dist/*.zip.sha256
+            dist/*/main.js
+            dist/*/manifest.json
+            dist/*/styles.css
+            dist/*/THIRD_PARTY_NOTICES.txt
+            dist/*/LICENSE
+            dist/*/PRIVACY.md
+            dist/*/README.md
+            dist/*/README.zh-CN.md
+            dist/*/CHANGELOG.md
+            dist/*/SHA256SUMS.txt

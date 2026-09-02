@@ -1,0 +1,17 @@
+node_modules/
+main.js
+*.log
+.DS_Store
+.idea/
+.vscode/
+coverage/
+data.json
+data.*.json
+data.json.*
+note-backup-*
+data*.tmp
+backups/
+dist/
+.env
+.env.*
+!.env.example

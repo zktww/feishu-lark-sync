@@ -1,0 +1,61 @@
+{
+  "name": "feishu-lark-sync",
+  "version": "1.0.0",
+  "description": "Sync Feishu and Lark documents into an Obsidian vault.",
+  "main": "main.js",
+  "type": "module",
+  "scripts": {
+    "dev": "node esbuild.config.mjs",
+    "build": "tsc --noEmit && node esbuild.config.mjs production",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "check": "npm run verify:release && npm run format:check && npm run lint && npm run typecheck && npm test && npm run build",
+    "lint": "eslint src --max-warnings 0",
+    "verify:release": "node scripts/verify-release.mjs",
+    "package": "npm run check && node scripts/package-release.mjs",
+    "format:check": "prettier --check src tests scripts docs .github \"*.{md,css,json,mjs,ts}\"",
+    "format": "prettier --write src tests scripts docs .github \"*.{md,css,json,mjs,ts}\""
+  },
+  "keywords": [
+    "obsidian",
+    "feishu",
+    "lark",
+    "sync"
+  ],
+  "author": "Feishu & Lark Sync contributors",
+  "license": "MIT",
+  "private": true,
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "files": [
+    "main.js",
+    "manifest.json",
+    "styles.css",
+    "README.md",
+    "README.zh-CN.md",
+    "LICENSE",
+    "CHANGELOG.md",
+    "PRIVACY.md",
+    "THIRD_PARTY_NOTICES.txt"
+  ],
+  "devDependencies": {
+    "@types/jsdom": "^30.0.0",
+    "@types/node": "^26.4.0",
+    "esbuild": "^0.28.2",
+    "esbuild-plugin-license": "^1.2.3",
+    "eslint": "^10.9.1",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-obsidianmd": "^0.4.2",
+    "fflate": "^0.8.3",
+    "jsdom": "^29.1.1",
+    "obsidian": "^1.13.1",
+    "prettier": "^3.9.6",
+    "typescript": "^5.9.3",
+    "vitest": "^4.1.11"
+  },
+  "dependencies": {
+    "mdast-util-from-markdown": "^2.0.3",
+    "yaml": "^2.9.0"
+  }
+}

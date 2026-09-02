@@ -1,0 +1,20 @@
+import { afterEach, expect, it, vi } from "vitest";
+import { nextDelay, SyncScheduler } from "../src/sync/scheduler";
+afterEach(() => vi.useRealTimers());
+it("schedules one run, cancels on stop, and caps failure backoff", async () => {
+  vi.useFakeTimers();
+  const run = vi.fn(async () => {});
+  const scheduler = new SyncScheduler(run, () => {});
+  scheduler.arm(15, 0);
+  expect(scheduler.nextRunAt).toBe(Date.now() + 15 * 60_000);
+  await vi.advanceTimersByTimeAsync(15 * 60_000);
+  expect(run).toHaveBeenCalledTimes(1);
+  await vi.advanceTimersByTimeAsync(60 * 60_000);
+  expect(run).toHaveBeenCalledTimes(1);
+  scheduler.arm(15, 0);
+  scheduler.stop();
+  await vi.advanceTimersByTimeAsync(15 * 60_000);
+  expect(run).toHaveBeenCalledTimes(1);
+  expect(nextDelay(15, 1)).toBe(30 * 60_000);
+  expect(nextDelay(60, 100)).toBe(6 * 60 * 60_000);
+});
