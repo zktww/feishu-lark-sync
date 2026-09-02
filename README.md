@@ -6,7 +6,7 @@
 
 ## Current status
 
-Version 1.0.0 includes a Sync Center, guided setup, conflict resolution, recovery and verified release packaging for the doc/docx pull workflow:
+Version 1.0.1 includes a Sync Center, guided setup, conflict resolution, recovery and verified release packaging for the doc/docx pull workflow:
 
 - Obsidian plugin scaffold and settings UI
 - Dedicated `lark-cli` profile configuration
@@ -84,7 +84,9 @@ npm ci --ignore-scripts
 npm run package
 ```
 
-`dist/feishu-lark-sync-1.0.0.zip` contains nine allowlisted files: `main.js`, `manifest.json`, `styles.css`, the two READMEs, `LICENSE`, `CHANGELOG.md`, `PRIVACY.md` and `THIRD_PARTY_NOTICES.txt`. Standalone files and `SHA256SUMS.txt` are also generated under `dist/1.0.0/`. Complete bundled-dependency notices are embedded in `main.js`, including community installs. The ZIP has its own checksum. Packaging never traverses the working directory or includes state/note backups. It does not publish anything. CI is configured for Linux, macOS and Windows. See the [release checklist](docs/release-checklist.md) before public release.
+`dist/feishu-lark-sync-1.0.1.zip` contains nine allowlisted files: `main.js`, `manifest.json`, `styles.css`, the two READMEs, `LICENSE`, `CHANGELOG.md`, `PRIVACY.md` and `THIRD_PARTY_NOTICES.txt`. Standalone files and `SHA256SUMS.txt` are also generated under `dist/1.0.1/`. Complete bundled-dependency notices are embedded in `main.js`, including community installs. The ZIP has its own checksum. Packaging never traverses the working directory or includes state/note backups. It does not publish anything. CI is configured for Linux, macOS and Windows. See the [release checklist](docs/release-checklist.md) before public release.
+
+Maintainers prepare public releases using the manually dispatched **Prepare release** workflow on an existing version tag. It requires the three-platform CI matrix, verifies that the tag, manifest and workflow commit agree, and generates GitHub build-provenance attestations for the standalone assets and ZIP. Publishing is a separate, explicit step using those exact artifacts. Never replace assets or move tags on an already published version; release a new patch version instead.
 
 Copy these files to an Obsidian vault plugin directory for local testing:
 
