@@ -1,5 +1,6 @@
 import { readFile } from "node:fs/promises";
 import assert from "node:assert/strict";
+import { validateManifestName } from "./manifest-name.mjs";
 const read = async (name) =>
   JSON.parse(await readFile(new URL(`../${name}`, import.meta.url), "utf8"));
 const [pkg, manifest, versions, lock] = await Promise.all(
@@ -8,6 +9,12 @@ const [pkg, manifest, versions, lock] = await Promise.all(
   ),
 );
 assert.match(manifest.version, /^\d+\.\d+\.\d+$/);
+validateManifestName(manifest.name);
+assert.equal(
+  manifest.author,
+  pkg.author,
+  "Package and manifest authors must agree",
+);
 assert.equal(pkg.version, manifest.version);
 assert.equal(lock.version, manifest.version);
 assert.equal(lock.packages[""].version, manifest.version);

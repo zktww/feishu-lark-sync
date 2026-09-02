@@ -77,7 +77,7 @@ const EN = {
   "common.cancel": "Cancel",
   "modal.bind.action": "Bind",
   "notice.bindSuccess": "Feishu application profile configured.",
-  "modal.auth.title": "Authorize Feishu & Lark Sync",
+  "modal.auth.title": "Authorize Feishu Lark Sync",
   "modal.auth.desc":
     "Open the link and approve the three read-only Wiki, Docs, and Drive scopes, then return here to complete authorization.",
   "modal.auth.copy": "Copy link",
@@ -185,7 +185,7 @@ const ZH_CN: Record<TranslationKey, string> = {
   "common.cancel": "取消",
   "modal.bind.action": "绑定",
   "notice.bindSuccess": "飞书应用配置已完成。",
-  "modal.auth.title": "授权 Feishu & Lark Sync",
+  "modal.auth.title": "授权 Feishu Lark Sync",
   "modal.auth.desc":
     "打开链接并确认知识库、文档和云盘三项只读权限，然后返回这里完成授权。",
   "modal.auth.copy": "复制链接",

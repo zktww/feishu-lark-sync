@@ -1,8 +1,8 @@
-# Feishu & Lark Sync
+# Feishu Lark Sync
 
 [English](README.md) | [简体中文](README.zh-CN.md)
 
-`Feishu & Lark Sync` is a desktop-only Obsidian plugin for mirroring Feishu and Lark documents into a local vault.
+`Feishu Lark Sync` is a desktop-only Obsidian plugin for mirroring Feishu and Lark documents into a local vault.
 
 ## Current status
 

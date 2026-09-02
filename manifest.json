@@ -1,9 +1,9 @@
 {
   "id": "feishu-lark-sync",
-  "name": "Feishu & Lark Sync",
+  "name": "Feishu Lark Sync",
   "version": "1.0.0",
   "minAppVersion": "1.11.4",
   "description": "Sync Feishu and Lark documents into your local vault.",
-  "author": "Feishu & Lark Sync contributors",
+  "author": "Feishu Lark Sync contributors",
   "isDesktopOnly": true
 }

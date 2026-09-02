@@ -22,7 +22,7 @@
     "lark",
     "sync"
   ],
-  "author": "Feishu & Lark Sync contributors",
+  "author": "Feishu Lark Sync contributors",
   "license": "MIT",
   "private": true,
   "engines": {

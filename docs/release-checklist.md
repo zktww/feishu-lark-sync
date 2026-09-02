@@ -4,6 +4,7 @@
 
 - [ ] `npm ci --ignore-scripts` on Node.js 22.13+ using the checked-in lockfile.
 - [ ] `npm run package`: metadata, formatting, official Obsidian ESLint (zero warnings), types, tests, build, full license notices and ZIP allowlist.
+- [ ] Display name is `Feishu Lark Sync` in source and release manifests. The local character check follows the [manifest naming rules](https://docs.obsidian.md/Reference/Manifest#name); it does not guarantee directory uniqueness or approval.
 - [ ] Review `npm audit`; a clean result is not a full security audit.
 - [ ] ZIP has exactly nine distribution files, no state, note backups, caches, secrets or source maps. Never ZIP the working plugin directory.
 - [ ] Standalone `main.js` embeds complete dependency notices; install it together with matching `manifest.json` and `styles.css` from `dist/1.0.0/`.
@@ -39,5 +40,7 @@
 3. Follow the [official submission guide](https://docs.obsidian.md/plugins/releasing/submit-plugin): sign in to the Obsidian community site, connect GitHub, choose **Plugins → New plugin**, and submit the repo for automated review. Resolve review findings and complete publication there. A GitHub upload does not mean market approval.
 4. Follow [developer policies](https://docs.obsidian.md/community-directory/developer-policies): disclose account/network/outside-vault access, honor dependency licenses, no client telemetry or automatic dependency installation.
 5. After approval, add the actual community installation link. Future tags/assets must also match their manifests.
+
+For a display-name correction, push the corrected manifest to the default branch and upload the newly built assets, not only a renamed release title. Replace stale attachments in an unpublished draft. If the version is already published, prepare a new patch release instead of silently replacing a published version. The plugin ID and user data directory do not change.
 
 Current status: local release preparation only. Real Feishu/Lark authorization, Obsidian UI acceptance, remote CI and community approval are not established by mocked tests. Leave these boxes unchecked until evidence exists. Git credentials, commit identity and publishing permission are separate decisions.

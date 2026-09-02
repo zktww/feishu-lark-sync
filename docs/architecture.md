@@ -2,7 +2,7 @@
 
 ## Product boundary
 
-Feishu & Lark Sync is an ingestion plugin. It converts Feishu/Lark content into local Markdown. Agent access remains a separate concern and can be provided by the filesystem or an existing Obsidian REST/MCP plugin.
+Feishu Lark Sync is an ingestion plugin. It converts Feishu/Lark content into local Markdown. Agent access remains a separate concern and can be provided by the filesystem or an existing Obsidian REST/MCP plugin.
 
 ```text
 Feishu/Lark API

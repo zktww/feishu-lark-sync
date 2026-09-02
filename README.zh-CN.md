@@ -1,10 +1,10 @@
-# Feishu & Lark Sync
+# Feishu Lark Sync
 
 [English](README.md) | [简体中文](README.zh-CN.md)
 
-`Feishu & Lark Sync` 是一款桌面端 Obsidian 插件，用于将飞书或 Lark 中的文档同步到本地 Obsidian 知识库。
+`Feishu Lark Sync` 是一款桌面端 Obsidian 插件，用于将飞书或 Lark 中的文档同步到本地 Obsidian 知识库。
 
-- 插件名称：Feishu & Lark Sync
+- 插件名称：Feishu Lark Sync
 - 插件 ID：`feishu-lark-sync`
 - 数据方向：飞书/Lark → Obsidian
 - 数据原则：本地优先、用户授权、无第三方中转服务
@@ -114,7 +114,7 @@ npm run package
 <vault>/.obsidian/plugins/feishu-lark-sync/
 ```
 
-然后在 Obsidian 的“设置 → 第三方插件”中启用 `Feishu & Lark Sync`。
+然后在 Obsidian 的“设置 → 第三方插件”中启用 `Feishu Lark Sync`。
 
 如果 `lark-cli` 通过 NVM 安装，建议在插件设置中填写 `command -v lark-cli` 返回的绝对路径。插件会把该可执行文件所在目录加入子进程 PATH，以便从 Finder 启动的 Obsidian 也能找到对应的 Node.js。
 

@@ -2,6 +2,9 @@
 
 ## 1.0.0
 
+- Use the directory-compatible display name `Feishu Lark Sync` across metadata, UI, documentation and release assets. Plugin ID, profile and vault paths remain `feishu-lark-sync`; existing data does not need migration.
+- Check manifest name characters before packaging and cover invalid names with regression tests. Directory uniqueness and reserved-name approval remain server-side checks.
+
 - First 1.0 release preparation; package, lockfile, manifest and compatibility registry versions agree. This does not imply a published GitHub/community release.
 - Official Obsidian ESLint zero-warning gate, native settings headings and searchable sections on 1.13+, retaining the 1.11.4 legacy path.
 - Complete dependency licenses generated automatically and embedded in standalone `main.js`; packaging refuses absent notices.
