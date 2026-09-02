@@ -11,7 +11,7 @@
 
 ## 当前状态
 
-版本 1.0.0 提供 doc/docx 拉取链路、同步中心、分步配置、冲突处理、状态恢复和经过校验的发布打包：
+版本 1.0.1 提供 doc/docx 拉取链路、同步中心、分步配置、冲突处理、状态恢复和经过校验的发布打包：
 
 - Obsidian 插件工程和设置界面
 - 独立的 `lark-cli` Profile 配置
@@ -100,7 +100,9 @@ npm ci --ignore-scripts
 npm run package
 ```
 
-产物是 `dist/feishu-lark-sync-1.0.0.zip` 和独立的 SHA-256 校验文件。ZIP 只包含九个白名单文件：`main.js`、`manifest.json`、`styles.css`、中英文 README、`LICENSE`、`CHANGELOG.md`、`PRIVACY.md`、`THIRD_PARTY_NOTICES.txt`。`dist/1.0.0/` 另提供可单独上传 Release 的文件和 `SHA256SUMS.txt`。依赖的完整许可证也嵌入 `main.js`，确保插件市场安装时仍然携带。打包不会遍历工作目录，不包含状态或笔记备份；不会发布到远端。CI 配置覆盖 Linux/macOS/Windows，正式发布前见[发布检查清单](docs/release-checklist.md)。
+产物是 `dist/feishu-lark-sync-1.0.1.zip` 和独立的 SHA-256 校验文件。ZIP 只包含九个白名单文件：`main.js`、`manifest.json`、`styles.css`、中英文 README、`LICENSE`、`CHANGELOG.md`、`PRIVACY.md`、`THIRD_PARTY_NOTICES.txt`。`dist/1.0.1/` 另提供可单独上传 Release 的文件和 `SHA256SUMS.txt`。依赖的完整许可证也嵌入 `main.js`，确保插件市场安装时仍然携带。打包不会遍历工作目录，不包含状态或笔记备份；不会发布到远端。CI 配置覆盖 Linux/macOS/Windows，正式发布前见[发布检查清单](docs/release-checklist.md)。
+
+维护者在已有版本标签上手动运行 **Prepare release** 工作流：先通过三平台 CI，再校验标签、manifest 和工作流提交一致，为独立安装文件及 ZIP 生成 GitHub 构建来源证明。正式发布仍是独立、明确授权的步骤，必须使用该次工作流的原始产物。已发布版本不再替换附件或移动标签；修正应递增补丁版本。
 
 本地测试时，将以下文件复制到 Obsidian Vault 的插件目录：
 

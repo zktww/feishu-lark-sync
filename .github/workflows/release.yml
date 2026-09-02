@@ -1,0 +1,79 @@
+name: Prepare release
+
+# Explicitly dispatched on an existing release tag, never on a PR or a timer.
+# This workflow builds/attests artifacts only; publishing remains a separate step.
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Existing tag matching manifest.json (for example 1.0.1)
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: prepare-release-${{ inputs.version }}
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    uses: ./.github/workflows/ci.yml
+
+  package:
+    needs: validate
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+      attestations: write
+      artifact-metadata: write
+    env:
+      RELEASE_VERSION: ${{ inputs.version }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 22
+          cache: npm
+          package-manager-cache: false
+      - name: Verify tag, workflow commit and merged source
+        run: |
+          node scripts/verify-release-source.mjs
+          git merge-base --is-ancestor HEAD origin/main
+      - run: npm ci --ignore-scripts
+      - run: npm run package
+      - name: Verify build did not change tracked release inputs
+        run: node scripts/verify-release-source.mjs
+      - name: Attest standalone assets and ZIP
+        uses: actions/attest@1e69f48acb82d1966a394da916b4c1698aa569d6 # v4.2.2
+        with:
+          create-storage-record: false
+          subject-path: |
+            dist/${{ inputs.version }}/main.js
+            dist/${{ inputs.version }}/manifest.json
+            dist/${{ inputs.version }}/styles.css
+            dist/feishu-lark-sync-${{ inputs.version }}.zip
+      - name: Retain verified release files
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: release-assets-${{ inputs.version }}
+          if-no-files-found: error
+          retention-days: 14
+          path: |
+            dist/${{ inputs.version }}/main.js
+            dist/${{ inputs.version }}/manifest.json
+            dist/${{ inputs.version }}/styles.css
+            dist/${{ inputs.version }}/README.md
+            dist/${{ inputs.version }}/README.zh-CN.md
+            dist/${{ inputs.version }}/LICENSE
+            dist/${{ inputs.version }}/CHANGELOG.md
+            dist/${{ inputs.version }}/PRIVACY.md
+            dist/${{ inputs.version }}/THIRD_PARTY_NOTICES.txt
+            dist/${{ inputs.version }}/SHA256SUMS.txt
+            dist/feishu-lark-sync-${{ inputs.version }}.zip
+            dist/feishu-lark-sync-${{ inputs.version }}.zip.sha256

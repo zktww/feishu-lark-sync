@@ -7,9 +7,10 @@
 - [ ] Display name is `Feishu Lark Sync` in source and release manifests. The local character check follows the [manifest naming rules](https://docs.obsidian.md/Reference/Manifest#name); it does not guarantee directory uniqueness or approval.
 - [ ] Review `npm audit`; a clean result is not a full security audit.
 - [ ] ZIP has exactly nine distribution files, no state, note backups, caches, secrets or source maps. Never ZIP the working plugin directory.
-- [ ] Standalone `main.js` embeds complete dependency notices; install it together with matching `manifest.json` and `styles.css` from `dist/1.0.0/`.
+- [ ] Standalone `main.js` embeds complete dependency notices; install it together with matching `manifest.json` and `styles.css` from `dist/1.0.1/`.
 - [ ] Verify `SHA256SUMS.txt` and the ZIP checksum; install in a disposable test vault.
-- [ ] Remote CI matrix succeeds on Linux/macOS/Windows. CI retains allowlisted build artifacts but does not publish a release.
+- [ ] Remote CI matrix succeeds on Linux/macOS/Windows. CI retains allowlisted build artifacts but does not publish a release. Git text checkouts must remain LF even when `core.autocrlf=true`.
+- [ ] `npm run verify:release-source -- 1.0.1` passes on the clean tagged checkout before and after building. Tag, manifest version, workflow SHA and source inputs must agree.
 
 ## Manual acceptance in an isolated vault
 
@@ -35,12 +36,15 @@
 
 ## Release and community submission (explicit authorization required)
 
-1. Push reviewed source to a public GitHub repository with manifest, README and LICENSE at its default-branch root. Local scripts do not commit, tag or push.
-2. After acceptance, use tag exactly **`1.0.0`**, without `v`, matching the manifest. Attach **`main.js`, `manifest.json`, `styles.css` individually**. A ZIP alone is insufficient. Optionally attach the ZIP, notices and checksums. Prefer a draft for inspection; publish only with approval.
-3. Follow the [official submission guide](https://docs.obsidian.md/plugins/releasing/submit-plugin): sign in to the Obsidian community site, connect GitHub, choose **Plugins → New plugin**, and submit the repo for automated review. Resolve review findings and complete publication there. A GitHub upload does not mean market approval.
-4. Follow [developer policies](https://docs.obsidian.md/community-directory/developer-policies): disclose account/network/outside-vault access, honor dependency licenses, no client telemetry or automatic dependency installation.
-5. After approval, add the actual community installation link. Future tags/assets must also match their manifests.
+1. Bump `package.json`, both root versions in `package-lock.json`, `manifest.json` and `versions.json` together. Submit the reviewed changes through a PR to protected `main`; wait for the full CI matrix before merging. Local scripts do not commit, tag or push.
+2. After acceptance, create tag exactly **`1.0.1`**, without `v`, on the merged commit. Do not reuse or move `1.0.0`. Verify the remote tag resolves to the intended commit.
+3. Run **Prepare release** on ref `1.0.1` with input `version=1.0.1` (for example `gh workflow run release.yml --ref 1.0.1 -f version=1.0.1`). It runs the CI matrix, checks source/tag consistency, builds and attests the assets. It cannot publish a release: its contents permission is read-only.
+4. Download `release-assets-1.0.1` from that successful workflow run. Check `SHA256SUMS.txt`, the ZIP checksum and the version/name/author in the packaged manifest against the tagged source. Verify attestations with `gh attestation verify <asset-path> --repo zktww/feishu-lark-sync`; check that provenance refers to the intended workflow commit.
+5. Create a **draft** release using the existing verified tag and attach **`main.js`, `manifest.json`, `styles.css` individually** from the downloaded artifact, not another local rebuild. A ZIP alone is insufficient. Also attach the ZIP and checksums. Verify the uploaded asset digests before explicitly publishing. Never overwrite an existing published release to retry this procedure.
+6. Follow the [official submission guide](https://docs.obsidian.md/plugins/releasing/submit-plugin). First releases need the community submission; updates use new versioned releases, not duplicate plugin entries. Resolve review findings and confirm which version and commit the directory reviewed. A completed automated review is not a claim that every warning has been cleared.
+7. Follow [developer policies](https://docs.obsidian.md/community-directory/developer-policies): disclose account/network/outside-vault access, honor dependency licenses, no client telemetry or automatic dependency installation.
+8. After approval, add the actual community installation link. Future tags/assets must also match their manifests.
 
 For a display-name correction, push the corrected manifest to the default branch and upload the newly built assets, not only a renamed release title. Replace stale attachments in an unpublished draft. If the version is already published, prepare a new patch release instead of silently replacing a published version. The plugin ID and user data directory do not change.
 
-Current status: local release preparation only. Real Feishu/Lark authorization, Obsidian UI acceptance, remote CI and community approval are not established by mocked tests. Leave these boxes unchecked until evidence exists. Git credentials, commit identity and publishing permission are separate decisions.
+These boxes are a per-release checklist, not a claim of completed acceptance. Real Feishu/Lark authorization, Obsidian UI acceptance, remote CI and community approval are not established by mocked tests. Leave boxes unchecked until evidence exists. Git credentials, commit identity and publishing permission are separate decisions.

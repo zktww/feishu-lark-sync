@@ -23,6 +23,8 @@ npm run package
 
 `npm run package` validates metadata, formatting, the official Obsidian lint rules, types, tests, production build and distribution allowlist. It generates local artifacts only. It never commits, tags or publishes. The build regenerates `THIRD_PARTY_NOTICES.txt` and embeds the complete notices into `main.js`.
 
+Text files use LF on all platforms via `.gitattributes`; do not disable formatting checks to accommodate CRLF checkouts. Changes to protected `main` go through a pull request. For a public release, bump all version metadata together, merge the PR, and create a new matching tag on that merged commit. `npm run verify:release-source -- 1.0.1` is read-only and requires that exact tag and a clean checkout. Follow the release checklist and use the artifacts from **Prepare release**, not a local build from a different commit.
+
 ## Design and tests
 
 See [architecture](docs/architecture.md). Keep transport in `lark-cli.ts`, synchronization in `src/sync/`, note and media storage in `src/vault/`, UI in `settings.ts` / `status-view.ts`. Avoid introducing a second transport or state schema without a migration plan.

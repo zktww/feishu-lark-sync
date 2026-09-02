@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.0.1
+
+- Publish the directory-compatible name and author from the same source commit as the version tag and release assets; preserve the existing plugin ID and vault data.
+- Enforce LF text checkouts with `.gitattributes`, fixing Windows CI formatting failures without weakening formatting checks.
+- Add a read-only release-source guard that rejects stale tags, version mismatches, unexpected workflow commits and modified tracked inputs, with regression tests.
+- Add an explicitly dispatched release-preparation workflow: three-platform validation, exact tagged source, signed GitHub artifact attestations and allowlisted artifacts. It does not publish releases automatically.
+- Pin GitHub Actions to reviewed upstream release commits and stop persisting checkout credentials; keep CI read-only and signing permissions confined to release preparation.
+
+### 升级说明
+
+- 版本升级至 1.0.1，避免在 1.0.0 标签的旧源码上继续替换附件。
+- 无同步逻辑、用户权限或状态格式变更；插件目录和已有配置保持不变。
+- 仅替换 `main.js`、`manifest.json`、`styles.css`，不要覆盖 `data*.json` 或笔记备份。
+
 ## 1.0.0
 
 - Use the directory-compatible display name `Feishu Lark Sync` across metadata, UI, documentation and release assets. Plugin ID, profile and vault paths remain `feishu-lark-sync`; existing data does not need migration.
