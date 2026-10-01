@@ -42,7 +42,7 @@
   ],
   "devDependencies": {
     "@types/jsdom": "^30.0.0",
-    "@types/node": "^26.4.0",
+    "@types/node": "^26.6.3",
     "esbuild": "^0.28.2",
     "esbuild-plugin-license": "^1.2.3",
     "eslint": "^10.9.1",
